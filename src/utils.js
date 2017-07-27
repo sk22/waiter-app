@@ -6,3 +6,10 @@ export const objectExcludingKeys = object => keys =>
     (pre, cur) => ({ ...pre, [cur]: object[cur] }),
     {}
   )
+
+export const objectExcludingFilter = object => filter => {
+  const keys = Object.keys(object)
+  return Object.values(object)
+    .filter(filter)
+    .reduce((pre, cur, i) => ({ ...pre, [keys[i]]: cur }), {})
+}

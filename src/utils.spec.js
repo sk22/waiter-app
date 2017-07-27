@@ -1,4 +1,8 @@
-import { excludeFromArray, objectExcludingKeys } from './utils'
+import {
+  excludeFromArray,
+  objectExcludingKeys,
+  objectExcludingFilter
+} from './utils'
 
 test('excludeFromArray removes values', () => {
   expect(excludeFromArray(['a', 'b', 'c'])(['b', 'c'])).toEqual(['a'])
@@ -13,5 +17,18 @@ test('objectExcludingKeys removes given keys', () => {
     objectExcludingKeys({ a: 'foo', b: 'bar', c: 'baz' })(['b', 'a'])
   ).toEqual({
     c: 'baz'
+  })
+})
+
+test('objectExcludingFilter removes filtered values', () => {
+  expect(
+    objectExcludingFilter({
+      a: { num: 2 },
+      b: { num: 1 },
+      c: { num: 0 }
+    })(value => value.num > 0)
+  ).toEqual({
+    a: { num: 2 },
+    b: { num: 1 }
   })
 })
