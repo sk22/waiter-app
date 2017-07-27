@@ -13,10 +13,11 @@ const PaddedNav = styled.nav`
   padding-bottom: 1rem;
 `
 
-const Navigation = ({ title, children }) =>
+const Navigation = ({ iconButton, title, children }) =>
   <PaddedNav>
     <AppBar position="static" color="default">
       <Toolbar>
+        {iconButton}
         <FlexTypography type="title" color="inherit">
           {title}
         </FlexTypography>
@@ -26,6 +27,7 @@ const Navigation = ({ title, children }) =>
   </PaddedNav>
 
 Navigation.propTypes = {
+  iconButton: PropTypes.element,
   title: PropTypes.string,
   children: PropTypes.node
 }

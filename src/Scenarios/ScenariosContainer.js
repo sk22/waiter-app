@@ -11,7 +11,8 @@ const mapDispatchToProps = (dispatch, props) => ({
     if (!name) return
     props.history.goBack()
     dispatch(addScenario({ id: generate(), name, products }))
-  }
+  },
+  onRemove: id => {}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scenarios)

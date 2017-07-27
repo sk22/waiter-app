@@ -6,7 +6,8 @@ import {
   removeOrderProduct,
   setOrderAttributes,
   setOrderDelivered,
-  setOrderProduct
+  setOrderProduct,
+  setOrderScenario
 } from './ordersActions'
 import { objectExcludingKeys } from '../utils'
 
@@ -48,6 +49,10 @@ export default createReducer(
         ...state[id],
         products: objectExcludingKeys(state[id].products)([product])
       }
+    }),
+    [setOrderScenario]: (state, { id, scenario }) => ({
+      ...state,
+      [id]: { ...state[id], scenario }
     }),
     [removeOrder]: (state, id) => objectExcludingKeys(state)([id])
   },

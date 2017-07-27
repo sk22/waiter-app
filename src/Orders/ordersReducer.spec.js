@@ -5,7 +5,8 @@ import {
   removeOrderProduct,
   setOrderProduct,
   setOrderDelivered,
-  setOrderAttributes
+  setOrderAttributes,
+  setOrderScenario
 } from './ordersActions'
 
 const initialState = {
@@ -97,4 +98,12 @@ test('removes a product from the order', () => {
     removeOrderProduct({ id: 'o1', product: 'p1' })
   )
   expect(state.o1.products).toEqual({ p2: 3 })
+})
+
+test("sets an order's scenario", () => {
+  const state = reducer(
+    initialState,
+    setOrderScenario({ id: 'o1', scenario: 's2' })
+  )
+  expect(state.o1.scenario).toBe('s2')
 })

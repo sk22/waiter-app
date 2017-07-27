@@ -8,7 +8,7 @@ import List, { ListItem, ListItemText } from 'material-ui/List'
 import ScenarioAdder from './ScenarioAdder'
 import Page from '../layouts/Page'
 import Navigation from '../components/Navigation'
-import { scenario as scenarioPropType } from './scenarioPropTypes'
+import { scenario as scenarioPropType } from './scenariosPropTypes'
 
 const Scenarios = ({ scenarios, onAdd }) =>
   <Switch>
@@ -18,14 +18,14 @@ const Scenarios = ({ scenarios, onAdd }) =>
     />
     <Page>
       <Navigation title="Scenarios">
-        <IconButton to="/scenarios/add" component={Link}>
+        <IconButton component={Link} to="/scenarios/add">
           <AddIcon />
         </IconButton>
       </Navigation>
       <div>
         <List>
           {Object.keys(scenarios).map(id =>
-            <ListItem key={id} button component={Link} to={`/scenarios/${id}`}>
+            <ListItem key={id} button component={Link} to={`/${id}`}>
               <ListItemText primary={scenarios[id].name} />
             </ListItem>
           )}

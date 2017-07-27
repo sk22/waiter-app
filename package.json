@@ -39,7 +39,8 @@
     "extends": [
       "standard",
       "standard-react",
-      "prettier"
+      "prettier",
+      "prettier/react"
     ],
     "env": {
       "jest": true

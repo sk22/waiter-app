@@ -4,13 +4,16 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { injectGlobal } from 'styled-components'
 
+import exampleState from './exampleState'
 import reducer from './reducers'
 import Scenarios from './Scenarios'
-// import Orders from './Orders'
+import Orders from './Orders'
+import Order from './Order'
 // import Products from './Products'
 
 const store = createStore(
   reducer,
+  exampleState,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
@@ -28,6 +31,9 @@ const App = () =>
       <Switch>
         <Route exact path="/" component={Scenarios} />
         <Route path="/scenarios" component={Scenarios} />
+        <Route path="/orders/:id" component={Order} />
+        <Route path="/orders" component={Orders} />
+        <Route path="/:scenario" component={Orders} />
       </Switch>
     </BrowserRouter>
   </Provider>
