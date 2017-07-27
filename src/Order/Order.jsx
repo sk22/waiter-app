@@ -13,7 +13,6 @@ import Page from '../layouts/Page'
 import Navigation from '../components/Navigation'
 import Content from '../components/Content'
 import BackIconButton from '../components/BackIconButton'
-import Form from '../components/Form'
 
 const AutoSizeCheckbox = styled(Checkbox)`
   height: auto !important;
@@ -30,7 +29,9 @@ class Order extends Component {
     delivered: PropTypes.bool,
     history: PropTypes.shape({ goBack: PropTypes.func }),
     onChooseScenario: PropTypes.func,
-    onToggleDelivered: PropTypes.func
+    onToggleDelivered: PropTypes.func,
+    onChangeLocation: PropTypes.func,
+    onChangeNotes: PropTypes.func
   }
 
   state = {
@@ -95,13 +96,21 @@ class Order extends Component {
       </Menu>
       <Divider />
       <Content>
-        <Form>
-          <TextField
-            label="Location"
-            placeholder="Table number, ..."
-            fullWidth
-          />
-        </Form>
+        <TextField
+          label="Location"
+          placeholder="Table number, ..."
+          margin="normal"
+          fullWidth
+          onChange={event => this.props.onChangeLocation(event.target.value)}
+        />
+        <TextField
+          label="Notes"
+          multiline
+          fullWidth
+          margin="normal"
+          value={this.props.order.attributes.notes}
+          onChange={event => this.props.onChangeNotes(event.target.value)}
+        />
       </Content>
     </Page>
 }

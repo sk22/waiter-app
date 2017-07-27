@@ -1,6 +1,10 @@
 import { connect } from 'react-redux'
 
-import { setOrderScenario, setOrderDelivered } from '../Orders/ordersActions'
+import {
+  setOrderScenario,
+  setOrderDelivered,
+  setOrderAttributes
+} from '../Orders/ordersActions'
 import Order from './Order'
 
 const mapStateToProps = ({ scenarios, orders, products }, { match }) => {
@@ -11,11 +15,14 @@ const mapStateToProps = ({ scenarios, orders, products }, { match }) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, { match }) => ({
-  onChooseScenario: scenario =>
-    dispatch(setOrderScenario({ id: match.params.id, scenario })),
+const mapDispatchToProps = (dispatch, { match: { params: { id } } }) => ({
+  onChooseScenario: scenario => dispatch(setOrderScenario({ id, scenario })),
   onToggleDelivered: delivered =>
-    dispatch(setOrderDelivered({ id: match.params.id, delivered }))
+    dispatch(setOrderDelivered({ id, delivered })),
+  onChangeNotes: notes =>
+    dispatch(setOrderAttributes({ id, attributes: { notes } })),
+  onChangeLocation: location =>
+    dispatch(setOrderAttributes({ id, attributes: { location } }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Order)

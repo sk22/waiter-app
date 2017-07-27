@@ -24,7 +24,7 @@ export default {
       delivered: false,
       attributes: {
         place: '13',
-        note: ''
+        notes: ''
       },
       products: {
         p1: 4,

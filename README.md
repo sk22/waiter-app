@@ -17,10 +17,12 @@ product: shape({
 
 order: shape({
   scenario: string,
-  products: objectOf(number),
-  location: string,
-  note: string,
-  delivered: bool
+  delivered: bool,
+  attributes: {
+    location: string,
+    notes: string,
+  },
+  products: objectOf(number)
 })
 ```
 
@@ -57,7 +59,7 @@ order: shape({
       delivered: false,
       attributes: {
         location: '13',
-        note: ''
+        notes: ''
       },
       products: {
         p1: 4,
