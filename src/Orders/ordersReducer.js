@@ -26,16 +26,19 @@ export default createReducer(
       ...state,
       [id]: { ...state[id], delivered }
     }),
-    [setOrderProduct]: (state, { id, product, quantity }) => ({
-      ...state,
-      [id]: {
-        ...state[id],
-        products: {
-          ...state[id].products,
-          [product]: quantity
-        }
-      }
-    }),
+    [setOrderProduct]: (state, { id, product, quantity }) =>
+      quantity < 0
+        ? state
+        : {
+            ...state,
+            [id]: {
+              ...state[id],
+              products: {
+                ...state[id].products,
+                [product]: quantity
+              }
+            }
+          },
     [setOrderAttributes]: (state, { id, attributes }) => ({
       ...state,
       [id]: {

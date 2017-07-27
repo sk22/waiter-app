@@ -33,18 +33,26 @@ const Orders = ({ orders, history, name, match, onAdd, onToggle }) => {
       </Navigation>
       {notDelivered.length
         ? <List>
-            {notDelivered.map(id =>
-              <ListItem key={id} component={Link} to={`/orders/${id}`}>
-                <ListItemText primary={`Order ${id}`} />
-                <ListItemSecondaryAction>
-                  <IconButton>
-                    <ArchiveIcon
-                      onClick={() => onToggle(id)(!orders[id].delivered)}
-                    />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            )}
+            {notDelivered.map(id => {
+              const order = orders[id]
+              const location = order.attributes.location
+              return (
+                <ListItem key={id} component={Link} to={`/orders/${id}`}>
+                  <ListItemText
+                    primary={
+                      `Order ${id}` + (location ? ` at ${location}` : '')
+                    }
+                  />
+                  <ListItemSecondaryAction>
+                    <IconButton>
+                      <ArchiveIcon
+                        onClick={() => onToggle(id)(!orders[id].delivered)}
+                      />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              )
+            })}
           </List>
         : <List>
             <ListItem>
