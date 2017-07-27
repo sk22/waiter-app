@@ -9,9 +9,19 @@ import Order from './Order'
 
 const mapStateToProps = ({ scenarios, orders, products }, { match }) => {
   const id = match.params.id
+  const scenario = scenarios[orders[id].scenario]
   return {
     order: orders[id],
-    scenarios
+    scenarios,
+    products: Object.keys(products)
+      .filter(product => Object.keys(scenario.products).includes(product))
+      .reduce(
+        (pre, key) => ({
+          ...pre,
+          [key]: { ...products[key], price: scenario.products[key] }
+        }),
+        {}
+      )
   }
 }
 

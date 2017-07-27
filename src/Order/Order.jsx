@@ -6,6 +6,7 @@ import Checkbox from 'material-ui/Checkbox'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 import Menu, { MenuItem } from 'material-ui/Menu'
 import Divider from 'material-ui/Divider'
+import Badge from 'material-ui/Badge'
 
 import { order as orderPropType } from '../Orders/ordersPropTypes'
 import { scenario as scenarioPropType } from '../Scenarios/scenariosPropTypes'
@@ -23,8 +24,10 @@ class Order extends Component {
   static propTypes = {
     order: orderPropType,
     scenarios: PropTypes.objectOf(scenarioPropType),
-    prices: PropTypes.objectOf(PropTypes.number),
-    quantities: PropTypes.objectOf(PropTypes.number),
+    products: PropTypes.shape({
+      name: PropTypes.string,
+      category: PropTypes.string
+    }),
     attributes: PropTypes.object,
     delivered: PropTypes.bool,
     history: PropTypes.shape({ goBack: PropTypes.func }),
@@ -98,20 +101,27 @@ class Order extends Component {
       <Content>
         <TextField
           label="Location"
-          placeholder="Table number, ..."
           margin="normal"
           fullWidth
           onChange={event => this.props.onChangeLocation(event.target.value)}
         />
         <TextField
-          label="Notes"
+          placeholder="Notes"
+          margin="normal"
           multiline
           fullWidth
-          margin="normal"
           value={this.props.order.attributes.notes}
           onChange={event => this.props.onChangeNotes(event.target.value)}
         />
       </Content>
+      <Divider />
+      <List>
+        {Object.keys(this.props.products).map(id =>
+          <ListItem key={id} divider>
+            <ListItemText primary={this.props.products[id].name} />
+          </ListItem>
+        )}
+      </List>
     </Page>
 }
 
