@@ -18,7 +18,7 @@ product: shape({
 order: shape({
   scenario: string,
   products: objectOf(number),
-  place: string,
+  location: string,
   note: string,
   delivered: bool
 })
@@ -56,7 +56,7 @@ order: shape({
       scenario: 's1',
       delivered: false,
       attributes: {
-        place: '13',
+        location: '13',
         note: ''
       },
       products: {
