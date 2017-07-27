@@ -52,20 +52,21 @@ const Orders = ({ orders, history, name, match, onAdd, onToggle }) => {
             </ListItem>
           </List>}
 
-      <List subheader={<ListSubheader>Delivered</ListSubheader>}>
-        {delivered.map(id =>
-          <ListItem key={id} component={Link} to={`/orders/${id}`} dense>
-            <ListItemText primary={`Order ${id}`} />
-            <ListItemSecondaryAction>
-              <IconButton>
-                <UnarchiveIcon
-                  onClick={() => onToggle(id)(!orders[id].delivered)}
-                />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        )}
-      </List>
+      {Boolean(delivered.length) &&
+        <List subheader={<ListSubheader>Delivered</ListSubheader>}>
+          {delivered.map(id =>
+            <ListItem key={id} component={Link} to={`/orders/${id}`} dense>
+              <ListItemText primary={`Order ${id}`} />
+              <ListItemSecondaryAction>
+                <IconButton>
+                  <UnarchiveIcon
+                    onClick={() => onToggle(id)(!orders[id].delivered)}
+                  />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          )}
+        </List>}
     </Page>
   )
 }
