@@ -9,6 +9,7 @@ import RemoveIcon from 'material-ui-icons/Remove'
 const NumberInputBase = props => <input type="number" {...props} />
 const NumberInput = styled(NumberInputBase)`
   display: inline-flex;
+  font-family: 'Roboto', sans-serif;
   direction: rtl;
   align-items: center;
   border: none;

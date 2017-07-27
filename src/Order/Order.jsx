@@ -5,6 +5,7 @@ import Checkbox from 'material-ui/Checkbox'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 import Menu, { MenuItem } from 'material-ui/Menu'
 import Divider from 'material-ui/Divider'
+import Typography from 'material-ui/Typography'
 
 import { order as orderPropType } from '../Orders/ordersPropTypes'
 import { scenario as scenarioPropType } from '../Scenarios/scenariosPropTypes'
@@ -142,7 +143,9 @@ class Order extends Component {
         <Divider />
         <ListItem>
           <ListItemText primary="Sum" />
-          {this.props.sum.toFixed(2)}
+          <Typography type="subheading">
+            {this.props.sum.toFixed(2)}
+          </Typography>
         </ListItem>
       </List>
     </Page>
