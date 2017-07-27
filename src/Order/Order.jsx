@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 import TextField from 'material-ui/TextField'
+import Checkbox from 'material-ui/Checkbox'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 import Menu, { MenuItem } from 'material-ui/Menu'
 import Divider from 'material-ui/Divider'
@@ -13,6 +15,11 @@ import Content from '../components/Content'
 import BackIconButton from '../components/BackIconButton'
 import Form from '../components/Form'
 
+const AutoSizeCheckbox = styled(Checkbox)`
+  height: auto !important;
+  width: auto !important;
+`
+
 class Order extends Component {
   static propTypes = {
     order: orderPropType,
@@ -22,23 +29,24 @@ class Order extends Component {
     attributes: PropTypes.object,
     delivered: PropTypes.bool,
     history: PropTypes.shape({ goBack: PropTypes.func }),
-    onScenarioChoose: PropTypes.func
+    onChooseScenario: PropTypes.func,
+    onToggleDelivered: PropTypes.func
   }
 
   state = {
     anchorEl: null,
-    menuOpen: false
+    scenarioMenuOpen: false
   }
 
   handleClickListItem = event => {
-    this.setState({ anchorEl: event.target, menuOpen: true })
+    this.setState({ anchorEl: event.target, scenarioMenuOpen: true })
   }
 
-  handleRequestClose = () => this.setState({ menuOpen: false })
+  handleRequestClose = () => this.setState({ scenarioMenuOpen: false })
 
   onMenuItemClick = id => event => {
-    this.setState({ menuOpen: false })
-    this.props.onScenarioChoose(id)
+    this.setState({ scenarioMenuOpen: false })
+    this.props.onChooseScenario(id)
   }
 
   render = () =>
@@ -58,10 +66,21 @@ class Order extends Component {
             secondary={this.props.scenarios[this.props.order.scenario].name}
           />
         </ListItem>
+        <ListItem
+          button
+          onClick={event =>
+            this.props.onToggleDelivered(!this.props.order.delivered)}
+        >
+          <ListItemText primary="Delivered" />
+          <AutoSizeCheckbox
+            checked={this.props.order.delivered}
+            disableRipple
+          />
+        </ListItem>
       </List>
       <Menu
         anchorEl={this.state.anchorEl}
-        open={this.state.menuOpen}
+        open={this.state.scenarioMenuOpen}
         onRequestClose={this.handleRequestClose}
       >
         {Object.keys(this.props.scenarios).map(id =>
