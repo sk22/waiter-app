@@ -15,7 +15,12 @@ const Products = ({ products, productsByCategory, onAdd, history }) =>
   <Switch>
     <Route
       path="/products/add"
-      render={props => <ProductAdder onAdd={onAdd} {...props} />}
+      render={props =>
+        <ProductAdder
+          categories={Object.keys(productsByCategory)}
+          onAdd={onAdd}
+          {...props}
+        />}
     />
     <Page>
       <Navigation
@@ -29,6 +34,7 @@ const Products = ({ products, productsByCategory, onAdd, history }) =>
       <div>
         {Object.keys(productsByCategory).map(category =>
           <List
+            key={category}
             subheader={
               <ListSubheader>
                 {category}
