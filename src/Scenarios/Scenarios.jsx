@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Route, Link, Switch } from 'react-router-dom'
 import IconButton from 'material-ui/IconButton'
 import AddIcon from 'material-ui-icons/Add'
+import RestaurantMenuIcon from 'material-ui-icons/RestaurantMenu'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 
 import ScenarioAdder from './ScenarioAdder'
@@ -18,6 +19,9 @@ const Scenarios = ({ scenarios, onAdd }) =>
     />
     <Page>
       <Navigation title="Scenarios">
+        <IconButton component={Link} to="/products">
+          <RestaurantMenuIcon />
+        </IconButton>
         <IconButton component={Link} to="/scenarios/add">
           <AddIcon />
         </IconButton>
