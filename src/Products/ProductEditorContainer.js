@@ -1,8 +1,5 @@
 import { connect } from 'react-redux'
-import {
-  setProductName,
-  setProductCategory
-} from './productsActions'
+import { setProductName, setProductCategory } from './productsActions'
 import ProductEditor from './ProductEditor'
 
 const mapStateToProps = (
@@ -15,14 +12,12 @@ const mapStateToProps = (
   category: products[id] && products[id].category
 })
 
-const mapDispatchToProps = (
-  dispatch,
-  { onRemove, history, match: { params: { id } } }
-) => ({
+const mapDispatchToProps = (dispatch, { onRemove, history, match }) => ({
   history,
-  onRemove: () => onRemove(id),
-  onChangeName: name => dispatch(setProductName({ id, name })),
-  onChangeCategory: category => dispatch(setProductCategory({ id, category }))
+  onRemove: () => onRemove(match.params.id),
+  onChangeName: name => dispatch(setProductName({ id: match.params.id, name })),
+  onChangeCategory: category =>
+    dispatch(setProductCategory({ id: match.params.id, category }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductEditor)
