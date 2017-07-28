@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { generate } from 'shortid'
-import { createProduct } from './productsActions'
+import { createProduct, removeProduct } from './productsActions'
 import Products from './Products'
 
 const mapStateToProps = ({ products }) => {
@@ -18,9 +18,16 @@ const mapStateToProps = ({ products }) => {
   )
   return { productsByCategory, products }
 }
-const mapDispatchToProps = dispatch => ({
-  onAdd: ({ name, category }) =>
+const mapDispatchToProps = (dispatch, props) => ({
+  onAdd: ({ name, category }) => {
+    if (!name) return
+    props.history.goBack()
     dispatch(createProduct({ id: generate(), name, category }))
+  },
+  onRemove: id => {
+    props.history.goBack()
+    dispatch(removeProduct(id))
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products)

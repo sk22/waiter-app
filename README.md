@@ -119,13 +119,13 @@ order: shape({
   string
   ```
 
-* `SET_NAME`
+* `SET_PRODUCT_NAME`
   
   ```javascript
   { id: string, name: string }
   ```
 
-* `SET_CATEGORY`
+* `SET_PRODUCT_CATEGORY`
   
   ```javascript
   { id: string, category: string }
