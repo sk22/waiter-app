@@ -126,10 +126,10 @@ class OrderEditor extends Component {
               <ListItemText
                 primary={product.name}
                 secondary={
-                  product.price.toFixed(2) +
+                  Number(product.price).toFixed(2) +
                   (quantity
                     ? ` × ${quantity} = ` +
-                      (product.price * quantity).toFixed(2)
+                      (Number(product.price) * quantity).toFixed(2)
                     : '')
                 }
               />

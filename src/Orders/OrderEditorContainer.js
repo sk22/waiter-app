@@ -11,10 +11,11 @@ import OrderEditor from './OrderEditor'
 const mapStateToProps = ({ scenarios, orders, products }, { match }) => {
   const id = match.params.id
   const order = orders[id]
-  const scenario = order.scenario ? scenarios[order.scenario] : null
+  const scenario = order.scenario && scenarios[order.scenario]
+
   const sum = scenario
     ? Object.keys(order.products).reduce((pre, key) => {
-        const price = scenario.products[key]
+        const price = Number(scenario.products[key])
         const quantity = order.products[key]
         return pre + price * quantity
       }, 0)

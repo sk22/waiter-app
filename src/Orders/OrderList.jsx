@@ -32,7 +32,7 @@ const OrderList = ({ orders, history, name, match, onAdd, onToggle }) => {
         {match.params.scenario &&
           <IconButton
             component={Link}
-            to={`/${match.params.scenario}/products`}
+            to={`/scenarios/${match.params.scenario}/prices`}
           >
             <MoneyIcon />
           </IconButton>}
@@ -46,7 +46,11 @@ const OrderList = ({ orders, history, name, match, onAdd, onToggle }) => {
               const order = orders[id]
               const location = order.attributes.location
               return (
-                <ListItem key={id} component={Link} to={`/orders/${id}`}>
+                <ListItem
+                  key={id}
+                  component={Link}
+                  to={`/${match.params.scenario || 'orders'}/${id}`}
+                >
                   <ListItemText
                     primary={
                       `Order ${id}` + (location ? ` at ${location}` : '')

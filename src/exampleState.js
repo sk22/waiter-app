@@ -3,8 +3,8 @@ export default {
     s1: {
       name: 'Festival',
       products: {
-        p1: 3.5,
-        p2: 7
+        p1: '3.50',
+        p2: '7.00'
       }
     }
   },
@@ -27,8 +27,8 @@ export default {
         notes: ''
       },
       products: {
-        p1: 4,
-        p2: 3
+        p1: '4.00',
+        p2: '3.00'
       }
     }
   }

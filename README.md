@@ -96,7 +96,7 @@ order: shape({
 * `SET_SCENARIO_PRODUCT`
 
   ```javascript
-  { id: string, product: string, price: number }
+  { id: string, product: string, price: string }
   ```
 
 * `REMOVE_SCENARIO_PRODUCT`

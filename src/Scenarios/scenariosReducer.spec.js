@@ -11,8 +11,8 @@ const initialState = {
   s1: {
     name: 'Festival',
     products: {
-      p1: 3.5,
-      p2: 7
+      p1: '3.50',
+      p2: '7.00'
     }
   },
   s2: { name: 'Party', products: {} }
@@ -27,12 +27,12 @@ test('adds a scenario', () => {
     s1: {
       name: 'Festival',
       products: {
-        p1: 3.5,
-        p2: 7
+        p1: '3.50',
+        p2: '7.00'
       }
     },
     s2: { name: 'Party', products: {} },
-    s3: { name: 'Restaurant', products: { p1: 2 } }
+    s3: { name: 'Restaurant', products: { p1: '2.00' } }
   })
 })
 
@@ -54,7 +54,7 @@ test('sets a scenario name', () => {
 test("sets a product's price", () => {
   const state = reducer(
     initialState,
-    setScenarioProduct({ id: 's1', product: 'p1', price: 10 })
+    setScenarioProduct({ id: 's1', product: 'p1', price: '10.00' })
   )
   expect(state.s1.products).toEqual({
     p1: 10,
@@ -65,12 +65,12 @@ test("sets a product's price", () => {
 test("sets a new product's price", () => {
   const state = reducer(
     initialState,
-    setScenarioProduct({ id: 's1', product: 'p3', price: 10 })
+    setScenarioProduct({ id: 's1', product: 'p3', price: '10.00' })
   )
   expect(state.s1.products).toEqual({
-    p1: 3.5,
-    p2: 7,
-    p3: 10
+    p1: '3.50',
+    p2: '7.00',
+    p3: '10.00'
   })
 })
 
@@ -79,5 +79,5 @@ test('removes a product', () => {
     initialState,
     removeScenarioProduct({ id: 's1', product: 'p1' })
   )
-  expect(state.s1.products).toEqual({ p2: 7 })
+  expect(state.s1.products).toEqual({ p2: '7.00' })
 })

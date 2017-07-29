@@ -6,9 +6,9 @@ import OrderEditor from './OrderEditorContainer'
 
 const Orders = () =>
   <Switch>
-    <Route path="/orders" component={OrderList} />
+    <Route exact path="/orders" component={OrderList} />
+    <Route path="/:scenario/:id" component={OrderEditor} />
     <Route path="/:scenario" component={OrderList} />
-    <Route path="/orders/:id" component={OrderEditor} />
   </Switch>
 
 export default Orders
