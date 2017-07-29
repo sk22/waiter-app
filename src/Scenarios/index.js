@@ -1,3 +1,3 @@
-import ScenariosContainer from './ScenariosContainer'
+import Scenarios from './Scenarios'
 
-export default ScenariosContainer
+export default Scenarios

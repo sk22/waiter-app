@@ -1,46 +1,16 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { Route, Link, Switch } from 'react-router-dom'
-import IconButton from 'material-ui/IconButton'
-import AddIcon from 'material-ui-icons/Add'
-import RestaurantMenuIcon from 'material-ui-icons/RestaurantMenu'
-import List, { ListItem, ListItemText } from 'material-ui/List'
+import { Switch, Route } from 'react-router-dom'
 
-import ScenarioAdder from './ScenarioAdder'
-import Page from '../layouts/Page'
-import Navigation from '../components/Navigation'
-import { scenario as scenarioPropType } from './scenariosPropTypes'
+import ScenarioList from './ScenarioListContainer'
+import ScenarioAdder from './ScenarioAdderContainer'
+import ScenarioEditor from './ScenarioEditorContainer'
 
-const Scenarios = ({ scenarios, onAdd }) =>
+const Scenarios = () =>
   <Switch>
-    <Route
-      path="/scenarios/add"
-      render={props => <ScenarioAdder onAdd={onAdd} {...props} />}
-    />
-    <Page>
-      <Navigation title="Scenarios">
-        <IconButton component={Link} to="/products">
-          <RestaurantMenuIcon />
-        </IconButton>
-        <IconButton component={Link} to="/scenarios/add">
-          <AddIcon />
-        </IconButton>
-      </Navigation>
-      <div>
-        <List>
-          {Object.keys(scenarios).map(id =>
-            <ListItem key={id} button component={Link} to={`/${id}`}>
-              <ListItemText primary={scenarios[id].name} />
-            </ListItem>
-          )}
-        </List>
-      </div>
-    </Page>
+    <Route exact path="/" component={ScenarioList} />
+    <Route path="/scenarios/add" component={ScenarioAdder} />
+    <Route path="/scenarios/:id" component={ScenarioEditor} />
+    <Route path="/scenarios" component={ScenarioList} />
   </Switch>
-
-Scenarios.propTypes = {
-  scenarios: PropTypes.objectOf(scenarioPropType),
-  onAdd: PropTypes.func
-}
 
 export default Scenarios

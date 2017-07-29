@@ -18,7 +18,7 @@ import AutoSize from '../components/AutoSize'
 
 const AutoSizeCheckbox = AutoSize(Checkbox)
 
-class Order extends Component {
+class OrderEditor extends Component {
   static propTypes = {
     order: orderPropType,
     scenario: scenarioPropType,
@@ -151,4 +151,4 @@ class Order extends Component {
     </Page>
 }
 
-export default Order
+export default OrderEditor

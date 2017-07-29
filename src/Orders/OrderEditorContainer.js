@@ -6,7 +6,7 @@ import {
   setOrderAttributes,
   setOrderProduct
 } from '../Orders/ordersActions'
-import Order from './Order'
+import OrderEditor from './OrderEditor'
 
 const mapStateToProps = ({ scenarios, orders, products }, { match }) => {
   const id = match.params.id
@@ -56,4 +56,4 @@ const mapDispatchToProps = (dispatch, { match: { params: { id } } }) => ({
     dispatch(setOrderProduct({ id, product, quantity: Number(quantity) }))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Order)
+export default connect(mapStateToProps, mapDispatchToProps)(OrderEditor)

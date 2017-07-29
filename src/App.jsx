@@ -9,8 +9,6 @@ import reducer from './reducers'
 import Scenarios from './Scenarios'
 import Products from './Products'
 import Orders from './Orders'
-import Order from './Order'
-// import Products from './Products'
 
 const store = createStore(
   reducer,
@@ -33,7 +31,6 @@ const App = () =>
         <Route exact path="/" component={Scenarios} />
         <Route path="/scenarios" component={Scenarios} />
         <Route path="/products" component={Products} />
-        <Route path="/orders/:id" component={Order} />
         <Route path="/orders" component={Orders} />
         <Route path="/:scenario" component={Orders} />
       </Switch>

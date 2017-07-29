@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { generate } from 'shortid'
 
 import { setOrderDelivered, addOrder } from './ordersActions'
-import Orders from './Orders'
+import OrderList from './OrderList'
 import { objectExcludingFilter } from '../utils'
 
 const mapStateToProps = ({ orders, scenarios }, { match }) => {
@@ -22,4 +22,4 @@ const mapDispatchToProps = (dispatch, { match }) => ({
     dispatch(addOrder({ id: generate(), scenario: match.params.scenario }))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Orders)
+export default connect(mapStateToProps, mapDispatchToProps)(OrderList)
