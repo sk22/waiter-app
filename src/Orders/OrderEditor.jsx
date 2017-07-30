@@ -35,7 +35,7 @@ class OrderEditor extends Component {
     onToggleDelivered: PropTypes.func,
     onChangeLocation: PropTypes.func,
     onChangeNotes: PropTypes.func,
-    onUpdateProductQuantity: PropTypes.func
+    onChangeProductQuantity: PropTypes.func
   }
 
   state = {
@@ -134,8 +134,8 @@ class OrderEditor extends Component {
                 }
               />
               <NumberPicker
-                value={Number(quantity)}
-                onChange={this.props.onUpdateProductQuantity(id)}
+                value={quantity}
+                onChange={this.props.onChangeProductQuantity(id)}
               />
             </ListItem>
           )

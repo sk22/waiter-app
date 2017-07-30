@@ -8,9 +8,7 @@ import RemoveIcon from 'material-ui-icons/Remove'
 
 const NumberInputBase = props => <input type="number" {...props} />
 const NumberInput = styled(NumberInputBase)`
-  display: inline-flex;
   font-family: 'Roboto', sans-serif;
-  direction: rtl;
   align-items: center;
   border: none;
   height: 1.25rem;
@@ -18,6 +16,10 @@ const NumberInput = styled(NumberInputBase)`
   text-align: center;
   font-size: 1rem;
   font-weight: 400;
+
+  & ::-webkit-outer-spin-button, ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
 `
 
 const StyledSpan = styled.span`
@@ -26,14 +28,16 @@ const StyledSpan = styled.span`
   justify-content: center;
 `
 
-
 const NumberPicker = ({ onChange, value = 0 }) =>
   <StyledSpan>
-    {value > 0 && <IconButton onClick={() => onChange(value - 1)}>
-      <RemoveIcon />
-    </IconButton>}
+    {value > 0 &&
+      <IconButton onClick={() => onChange(value - 1)}>
+        <RemoveIcon />
+      </IconButton>}
     <NumberInput
-      onChange={event => onChange(event.target.value)}
+      onChange={event =>
+        event.target.value.match(/^[0-9]*$/) &&
+        onChange(Number(event.target.value))}
       value={value || ''}
     />
     <IconButton onClick={() => onChange(value + 1)}>

@@ -27,8 +27,8 @@ export default {
         notes: ''
       },
       products: {
-        p1: '4.00',
-        p2: '3.00'
+        p1: 4,
+        p2: 3
       }
     }
   }

@@ -53,8 +53,8 @@ const mapDispatchToProps = (dispatch, { match: { params: { id } } }) => ({
     dispatch(setOrderAttributes({ id, attributes: { notes } })),
   onChangeLocation: location =>
     dispatch(setOrderAttributes({ id, attributes: { location } })),
-  onUpdateProductQuantity: product => quantity =>
-    dispatch(setOrderProduct({ id, product, quantity: Number(quantity) }))
+  onChangeProductQuantity: product => quantity =>
+    dispatch(setOrderProduct({ id, product, quantity }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderEditor)
