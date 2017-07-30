@@ -4,7 +4,8 @@ import styled from 'styled-components'
 import List, {
   ListItem,
   ListItemText,
-  ListItemSecondaryAction
+  ListItemSecondaryAction,
+  ListSubheader
 } from 'material-ui/List'
 import Checkbox from 'material-ui/Checkbox'
 import TextField from 'material-ui/TextField'
@@ -14,6 +15,11 @@ import BackIconButton from '../components/BackIconButton'
 import Navigation from '../components/Navigation'
 import { scenario as scenarioPropType } from './scenariosPropTypes'
 import { product as productPropType } from '../Products/productsPropTypes'
+
+// prettier-ignore
+import {
+  categoryProducts as categoryProductsPropType
+} from '../aggregatorsPropTypes'
 
 const LeftListItemSecondaryAction = styled(ListItemSecondaryAction)`
   left: 4px;
@@ -35,6 +41,7 @@ const PricesEditor = ({
   history,
   scenario,
   products,
+  categoryProducts,
   onToggleProduct,
   onChangePrice
 }) =>
@@ -43,33 +50,44 @@ const PricesEditor = ({
       title="Prices"
       iconButton={<BackIconButton goBack={history.goBack} />}
     />
-    <List>
-      {Object.keys(products).map(id => {
-        const included = Object.keys(scenario.products).includes(id)
-        return (
-          <ListItem key={id}>
-            <LeftListItemSecondaryAction>
-              <Checkbox
-                checked={included}
-                onClick={() => onToggleProduct(id)(included)}
-              />
-            </LeftListItemSecondaryAction>
-            <LeftMarginedListItemText primary={products[id].name} />
-            {included &&
-              <NumberTextField
-                value={scenario.products[id]}
-                onChange={event => onChangePrice(id)(event.target.value)}
-              />}
-          </ListItem>
-        )
-      })}
-    </List>
+    {Object.keys(categoryProducts).map(category =>
+        <List
+          key={category}
+          subheader={
+            <ListSubheader>
+              {category || 'Uncategorized'}
+            </ListSubheader>
+          }
+        >
+          {categoryProducts[category].map(id => {
+            const included = Object.keys(scenario.products).includes(id)
+            return (
+              <ListItem key={id}>
+                <LeftListItemSecondaryAction>
+                  <Checkbox
+                    checked={included}
+                    onClick={() => onToggleProduct(id)(included)}
+                  />
+                </LeftListItemSecondaryAction>
+                <LeftMarginedListItemText primary={products[id].name} />
+                {included &&
+                  <NumberTextField
+                    value={scenario.products[id]}
+                    onChange={event => onChangePrice(id)(event.target.value)}
+                  />}
+              </ListItem>
+            )
+          })}
+        </List>
+      )
+    })}
   </Page>
 
 PricesEditor.propTypes = {
   history: PropTypes.shape({ goBack: PropTypes.func }).isRequired,
   scenario: scenarioPropType,
   products: PropTypes.objectOf(productPropType),
+  categories: PropTypes.arrayOf(PropTypes.string),
   onToggleProduct: PropTypes.func.isRequired,
   onChangePrice: PropTypes.func.isRequired
 }

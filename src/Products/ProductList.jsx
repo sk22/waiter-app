@@ -9,9 +9,14 @@ import Divider from 'material-ui/Divider'
 import Page from '../layouts/Page'
 import Navigation from '../components/Navigation'
 import BackIconButton from '../components/BackIconButton'
+
+// prettier-ignore
+import {
+  categoryProducts as categoryProductsPropType
+} from '../aggregatorsPropTypes'
 import { product as productPropType } from './productsPropTypes'
 
-const ProductList = ({ products, productsByCategory, history }) =>
+const ProductList = ({ categoryProducts, products, history }) =>
   <Page>
     <Navigation
       iconButton={<BackIconButton goBack={history.goBack} />}
@@ -21,16 +26,16 @@ const ProductList = ({ products, productsByCategory, history }) =>
         <AddIcon />
       </IconButton>
     </Navigation>
-    {Object.keys(productsByCategory).map(category =>
+    {Object.keys(categoryProducts).map(category =>
       <List
         key={category}
         subheader={
           <ListSubheader>
-            {category}
+            {category || 'Uncategorized'}
           </ListSubheader>
         }
       >
-        {productsByCategory[category].map(id =>
+        {categoryProducts[category].map(id =>
           <ListItem key={id} button component={Link} to={`/products/${id}`}>
             <ListItemText primary={products[id].name} />
           </ListItem>
@@ -42,8 +47,8 @@ const ProductList = ({ products, productsByCategory, history }) =>
 
 ProductList.propTypes = {
   history: PropTypes.shape({ goBack: PropTypes.func }).isRequired,
-  products: PropTypes.objectOf(productPropType),
-  productsByCategory: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string))
+  categoryProducts: categoryProductsPropType,
+  products: PropTypes.objectOf(productPropType)
 }
 
 export default ProductList

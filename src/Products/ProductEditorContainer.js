@@ -8,7 +8,7 @@ import ProductEditor from './ProductEditor'
 
 const mapStateToProps = ({ products }, { match: { params: { id } } }) => ({
   categories: [
-    ...new Set(...[Object.values(products).map(product => product.category)])
+    ...new Set(Object.values(products).map(product => product.category))
   ],
   product: products[id]
 })

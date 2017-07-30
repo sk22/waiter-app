@@ -1,13 +1,15 @@
 import { connect } from 'react-redux'
 import PricesEditor from './PricesEditor'
 import { setScenarioProduct, removeScenarioProduct } from './scenariosActions'
+import { categoryProducts } from '../aggregators'
 
 const fixPrice = text => [text].map(t => t.replace(/,/g, '.'))[0]
 
-const mapStateToProps = ({ scenarios, products }, { match }) => {
-  const scenario = scenarios[match.params.id]
-  return { scenario, products }
-}
+const mapStateToProps = ({ scenarios, products }, { match }) => ({
+  products,
+  scenario: scenarios[match.params.id],
+  categoryProducts: categoryProducts(products)
+})
 
 const mapDispatchToProps = (dispatch, { match }) => ({
   onToggleProduct: product => included =>
