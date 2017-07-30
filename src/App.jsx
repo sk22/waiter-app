@@ -4,17 +4,26 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { injectGlobal } from 'styled-components'
 
-import exampleState from './exampleState'
+// import exampleState from './exampleState'
 import reducer from './reducers'
 import Scenarios from './Scenarios'
 import Products from './Products'
 import Orders from './Orders'
 
+const savedState = JSON.parse(window.localStorage.getItem('waiter-app-state'))
+
 const store = createStore(
   reducer,
-  exampleState,
+  savedState,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
+
+store.subscribe(() => {
+  window.localStorage.setItem(
+    'waiter-app-state',
+    JSON.stringify(store.getState())
+  )
+})
 
 // eslint-disable-next-line
 injectGlobal`
