@@ -18,7 +18,7 @@ import Page from '../layouts/Page'
 import ErrorPage from '../layouts/ErrorPage'
 import BackIconButton from '../components/BackIconButton'
 import Navigation from '../components/Navigation'
-import { scenario as scenarioPropType } from '../Scenarios/scenariosPropTypes'
+import { order as orderPropType } from './ordersPropTypes'
 
 const OrderList = ({
   orders,
@@ -100,7 +100,9 @@ const OrderList = ({
       </Page>
 
 OrderList.propTypes = {
-  orders: scenarioPropType,
+  orders: PropTypes.objectOf(orderPropType),
+  delivered: PropTypes.arrayOf(PropTypes.string),
+  pending: PropTypes.arrayOf(PropTypes.string),
   name: PropTypes.string,
   history: PropTypes.shape({
     goBack: PropTypes.func
