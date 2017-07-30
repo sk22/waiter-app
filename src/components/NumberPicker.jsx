@@ -6,7 +6,7 @@ import IconButton from 'material-ui/IconButton'
 import AddIcon from 'material-ui-icons/Add'
 import RemoveIcon from 'material-ui-icons/Remove'
 
-const NumberInputBase = props => <input type="number" {...props} />
+const NumberInputBase = props => <input type="text" {...props} />
 const NumberInput = styled(NumberInputBase)`
   font-family: 'Roboto', sans-serif;
   align-items: center;
@@ -16,10 +16,6 @@ const NumberInput = styled(NumberInputBase)`
   text-align: center;
   font-size: 1rem;
   font-weight: 400;
-
-  & ::-webkit-outer-spin-button, ::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
 `
 
 const StyledSpan = styled.span`
@@ -36,7 +32,7 @@ const NumberPicker = ({ onChange, value = 0 }) =>
       </IconButton>}
     <NumberInput
       onChange={event =>
-        event.target.value.match(/^[0-9]*$/) &&
+        /^\d*$/.test(event.target.value) &&
         onChange(Number(event.target.value))}
       value={value || ''}
     />
