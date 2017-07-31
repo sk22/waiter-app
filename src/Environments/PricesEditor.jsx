@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import List, {
   ListItem,
   ListItemText,
@@ -9,6 +10,9 @@ import List, {
 } from 'material-ui/List'
 import Checkbox from 'material-ui/Checkbox'
 import TextField from 'material-ui/TextField'
+import Divider from 'material-ui/Divider'
+import IconButton from 'material-ui/IconButton'
+import RestaurantMenuIcon from 'material-ui-icons/RestaurantMenu'
 
 import Page from '../layouts/Page'
 import BackIconButton from '../components/BackIconButton'
@@ -33,8 +37,8 @@ const NumberTextField = styled(TextField)`
   & input {
     text-align: right;
   }
-  width: 5rem;
-  height: .9rem
+  height: 24px;
+  width: 6rem;
 `
 
 const PricesEditor = ({
@@ -49,38 +53,42 @@ const PricesEditor = ({
     <Navigation
       title="Prices"
       iconButton={<BackIconButton goBack={history.goBack} />}
-    />
+    >
+      <IconButton component={Link} to="/products">
+        <RestaurantMenuIcon />
+      </IconButton>
+    </Navigation>
     {Object.keys(categoryProducts).map(category =>
-        <List
-          key={category}
-          subheader={
-            <ListSubheader>
-              {category || 'Uncategorized'}
-            </ListSubheader>
-          }
-        >
-          {categoryProducts[category].map(id => {
-            const included = Object.keys(environment.products).includes(id)
-            return (
-              <ListItem key={id}>
-                <LeftListItemSecondaryAction>
-                  <Checkbox
-                    checked={included}
-                    onClick={() => onToggleProduct(id)(included)}
-                  />
-                </LeftListItemSecondaryAction>
-                <LeftMarginedListItemText primary={products[id].name} />
-                {included &&
-                  <NumberTextField
-                    value={environment.products[id]}
-                    onChange={event => onChangePrice(id)(event.target.value)}
-                  />}
-              </ListItem>
-            )
-          })}
-        </List>
-      )
-    }
+      <List
+        key={category}
+        subheader={
+          <ListSubheader>
+            {category || 'Uncategorized'}
+          </ListSubheader>
+        }
+      >
+        {categoryProducts[category].map(id => {
+          const included = Object.keys(environment.products).includes(id)
+          return (
+            <ListItem key={id}>
+              <LeftListItemSecondaryAction>
+                <Checkbox
+                  checked={included}
+                  onClick={() => onToggleProduct(id)(included)}
+                />
+              </LeftListItemSecondaryAction>
+              <LeftMarginedListItemText primary={products[id].name} />
+              {included &&
+                <NumberTextField
+                  value={environment.products[id]}
+                  onChange={event => onChangePrice(id)(event.target.value)}
+                />}
+            </ListItem>
+          )
+        })}
+        <Divider />
+      </List>
+    )}
   </Page>
 
 PricesEditor.propTypes = {

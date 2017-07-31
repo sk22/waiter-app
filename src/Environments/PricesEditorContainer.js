@@ -1,6 +1,9 @@
 import { connect } from 'react-redux'
 import PricesEditor from './PricesEditor'
-import { setEnvironmentProduct, removeEnvironmentProduct } from './environmentsActions'
+import {
+  setEnvironmentProduct,
+  removeEnvironmentProduct
+} from './environmentsActions'
 import { categoryProducts } from '../aggregators'
 
 const fixPrice = text => [text].map(t => t.replace(/,/g, '.'))[0]
@@ -19,6 +22,7 @@ const mapDispatchToProps = (dispatch, { match }) => ({
           setEnvironmentProduct({ id: match.params.id, product, price: '0.00' })
         ),
   onChangePrice: product => price =>
+    /^(\d|\.)*$/.test(fixPrice(price)) &&
     dispatch(
       setEnvironmentProduct({
         id: match.params.id,
