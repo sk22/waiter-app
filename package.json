@@ -27,13 +27,18 @@
     "eslint-plugin-react": "^7.1.0",
     "eslint-plugin-standard": "^3.0.1",
     "prettier": "^1.5.3",
-    "react-scripts": "1.0.10"
+    "react-scripts": "1.0.10",
+    "shx": "^0.2.2",
+    "surge": "^0.19.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepare": "node prepare-surge",
+    "predeploy": "npm run build && shx cp ./build/index.html ./build/200.html",
+    "deploy": "surge ./build waiter-app.surge.sh"
   },
   "eslintConfig": {
     "extends": [
