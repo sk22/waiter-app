@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import IconButton from 'material-ui/IconButton'
+import Typography from 'material-ui/Typography'
 import AddIcon from 'material-ui-icons/Add'
 import List, { ListItem, ListItemText, ListSubheader } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
@@ -29,17 +30,17 @@ const ProductList = ({ categoryProducts, products, history }) =>
     </Navigation>
     {!Object.keys(categoryProducts).length
       ? <Content>
-          <p>
+          <Typography gutterBottom>
             No products there to show yet. Add some?{' '}
             <span role="img" aria-labelledby="winking face">
               😉
             </span>
-          </p>
-          <p>
+          </Typography>
+          <Typography gutterBottom>
             Whatever you sell should be listed here. The prices are defined
             within each environment (see the money icon in the environment's
             order list), not here.
-          </p>
+          </Typography>
         </Content>
       : Object.keys(categoryProducts).map(category =>
           <List

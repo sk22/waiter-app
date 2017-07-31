@@ -10,6 +10,7 @@ import List, {
   ListItemText,
   ListItemSecondaryAction
 } from 'material-ui/List'
+import Typography from 'material-ui/Typography'
 
 import Page from '../layouts/Page'
 import Content from '../components/Content'
@@ -28,16 +29,16 @@ const Environments = ({ environments }) =>
     </Navigation>
     {!Object.keys(environments).length
       ? <Content>
-          <p>
+          <Typography gutterBottom>
             Environments help you structure your orders. One environment for
             each event, restaurant, etc.
-          </p>
-          <p>
+          </Typography>
+          <Typography>
             No environments there yet. Go create one!{' '}
             <span role="img" aria-labelledby="smiling face">
               😄
             </span>
-          </p>
+          </Typography>
         </Content>
       : <List>
           {Object.keys(environments).map(id =>
