@@ -8,7 +8,7 @@ import Divider from 'material-ui/Divider'
 import Typography from 'material-ui/Typography'
 
 import { order as orderPropType } from '../Orders/ordersPropTypes'
-import { scenario as scenarioPropType } from '../Scenarios/scenariosPropTypes'
+import { environment as environmentPropType } from '../Environments/environmentsPropTypes'
 import Page from '../layouts/Page'
 import Navigation from '../components/Navigation'
 import Content from '../components/Content'
@@ -21,8 +21,8 @@ const AutoSizeCheckbox = AutoSize(Checkbox)
 class OrderEditor extends Component {
   static propTypes = {
     order: orderPropType,
-    scenario: scenarioPropType,
-    scenarios: PropTypes.objectOf(scenarioPropType),
+    environment: environmentPropType,
+    environments: PropTypes.objectOf(environmentPropType),
     products: PropTypes.shape({
       name: PropTypes.string,
       category: PropTypes.string
@@ -31,7 +31,7 @@ class OrderEditor extends Component {
     delivered: PropTypes.bool,
     sum: PropTypes.number,
     history: PropTypes.shape({ goBack: PropTypes.func }),
-    onChooseScenario: PropTypes.func,
+    onChooseEnvironment: PropTypes.func,
     onToggleDelivered: PropTypes.func,
     onChangeLocation: PropTypes.func,
     onChangeNotes: PropTypes.func,
@@ -40,18 +40,18 @@ class OrderEditor extends Component {
 
   state = {
     anchorEl: null,
-    scenarioMenuOpen: false
+    environmentMenuOpen: false
   }
 
   handleClickListItem = event => {
-    this.setState({ anchorEl: event.target, scenarioMenuOpen: true })
+    this.setState({ anchorEl: event.target, environmentMenuOpen: true })
   }
 
-  handleRequestClose = () => this.setState({ scenarioMenuOpen: false })
+  handleRequestClose = () => this.setState({ environmentMenuOpen: false })
 
   onMenuItemClick = id => event => {
-    this.setState({ scenarioMenuOpen: false })
-    this.props.onChooseScenario(id)
+    this.setState({ environmentMenuOpen: false })
+    this.props.onChooseEnvironment(id)
   }
 
   render = () =>
@@ -67,8 +67,8 @@ class OrderEditor extends Component {
           onClick={this.handleClickListItem}
         >
           <ListItemText
-            primary="Scenario"
-            secondary={this.props.scenario ? this.props.scenario.name : 'None'}
+            primary="Environment"
+            secondary={this.props.environment ? this.props.environment.name : 'None'}
           />
         </ListItem>
         <ListItem
@@ -85,16 +85,16 @@ class OrderEditor extends Component {
       </List>
       <Menu
         anchorEl={this.state.anchorEl}
-        open={this.state.scenarioMenuOpen}
+        open={this.state.environmentMenuOpen}
         onRequestClose={this.handleRequestClose}
       >
-        {Object.keys(this.props.scenarios).map(id =>
+        {Object.keys(this.props.environments).map(id =>
           <MenuItem
             key={id}
-            selected={id === this.props.order.scenario}
+            selected={id === this.props.order.environment}
             onClick={this.onMenuItemClick(id)}
           >
-            {this.props.scenarios[id].name}
+            {this.props.environments[id].name}
           </MenuItem>
         )}
       </Menu>

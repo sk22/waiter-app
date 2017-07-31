@@ -1,5 +1,5 @@
 export default {
-  scenarios: {
+  environments: {
     s1: {
       name: 'Festival',
       products: {
@@ -20,7 +20,7 @@ export default {
   },
   orders: {
     o1: {
-      scenario: 's1',
+      environment: 's1',
       delivered: false,
       attributes: {
         place: '13',

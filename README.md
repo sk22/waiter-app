@@ -5,7 +5,7 @@
 ### Data Types
 
 ```javascript
-scenario: shape({
+environment: shape({
   name: string,
   products: objectOf(number)
 })
@@ -16,7 +16,7 @@ product: shape({
 })
 
 order: shape({
-  scenario: string,
+  environment: string,
   delivered: bool,
   attributes: {
     location: string,
@@ -30,7 +30,7 @@ order: shape({
 
 ```javascript
 {
-  scenarios: objectOf(scenario),
+  environments: objectOf(environment),
   products: objectOf(product),
   orders: objectOf(order)
 }
@@ -40,7 +40,7 @@ order: shape({
 
 ```javascript
 {
-  scenarios: {
+  environments: {
     s1: {
       name: 'Festival',
       products: {
@@ -55,7 +55,7 @@ order: shape({
   },
   orders: {
     o1: {
-      scenario: 's1',
+      environment: 's1',
       delivered: false,
       attributes: {
         location: '13',
@@ -72,7 +72,7 @@ order: shape({
 
 ### Actions
 
-#### Scenarios
+#### Environments
 
 * `ADD_SCENARIO`
 

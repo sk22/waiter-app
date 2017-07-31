@@ -4,23 +4,23 @@ import { generate } from 'shortid'
 import { setOrderDelivered, addOrder } from './ordersActions'
 import OrderList from './OrderList'
 
-const mapStateToProps = ({ orders, scenarios }, { match }) => {
-  const scenario = match.params.scenario
-  const ordersForScenario = Object.keys(orders).filter(
-    id => orders[id].scenario === match.params.scenario
+const mapStateToProps = ({ orders, environments }, { match }) => {
+  const environment = match.params.environment
+  const ordersForEnvironment = Object.keys(orders).filter(
+    id => orders[id].environment === match.params.environment
   )
   return {
-    name: scenario && scenarios[scenario] && scenarios[scenario].name,
+    name: environment && environments[environment] && environments[environment].name,
     orders,
-    delivered: ordersForScenario.filter(id => orders[id].delivered),
-    pending: ordersForScenario.filter(id => !orders[id].delivered)
+    delivered: ordersForEnvironment.filter(id => orders[id].delivered),
+    pending: ordersForEnvironment.filter(id => !orders[id].delivered)
   }
 }
 
 const mapDispatchToProps = (dispatch, { match }) => ({
   onToggle: id => delivered => dispatch(setOrderDelivered({ id, delivered })),
   onAdd: () =>
-    dispatch(addOrder({ id: generate(), scenario: match.params.scenario }))
+    dispatch(addOrder({ id: generate(), environment: match.params.environment }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderList)

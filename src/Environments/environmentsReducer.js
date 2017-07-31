@@ -1,25 +1,25 @@
 import { createReducer } from 'redux-act'
 
 import {
-  addScenario,
-  removeScenarioProduct,
-  removeScenario,
-  setScenarioProduct,
-  setScenarioName
-} from './scenariosActions'
+  addEnvironment,
+  removeEnvironmentProduct,
+  removeEnvironment,
+  setEnvironmentProduct,
+  setEnvironmentName
+} from './environmentsActions'
 import { objectExcludingKeys } from '../utils'
 
 export default createReducer(
   {
-    [addScenario]: (state, { id, name, products = {} }) => ({
+    [addEnvironment]: (state, { id, name, products = {} }) => ({
       ...state,
       [id]: { name, products }
     }),
-    [setScenarioName]: (state, { id, name }) => ({
+    [setEnvironmentName]: (state, { id, name }) => ({
       ...state,
       [id]: { ...state[id], name }
     }),
-    [setScenarioProduct]: (state, { id, product, price }) => ({
+    [setEnvironmentProduct]: (state, { id, product, price }) => ({
       ...state,
       [id]: {
         ...state[id],
@@ -29,14 +29,14 @@ export default createReducer(
         }
       }
     }),
-    [removeScenarioProduct]: (state, { id, product }) => ({
+    [removeEnvironmentProduct]: (state, { id, product }) => ({
       ...state,
       [id]: {
         ...state[id],
         products: objectExcludingKeys(state[id].products)([product])
       }
     }),
-    [removeScenario]: (state, id) => objectExcludingKeys(state)([id])
+    [removeEnvironment]: (state, id) => objectExcludingKeys(state)([id])
   },
   {}
 )

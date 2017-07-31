@@ -13,7 +13,7 @@ import TextField from 'material-ui/TextField'
 import Page from '../layouts/Page'
 import BackIconButton from '../components/BackIconButton'
 import Navigation from '../components/Navigation'
-import { scenario as scenarioPropType } from './scenariosPropTypes'
+import { environment as environmentPropType } from './environmentsPropTypes'
 import { product as productPropType } from '../Products/productsPropTypes'
 
 // prettier-ignore
@@ -39,7 +39,7 @@ const NumberTextField = styled(TextField)`
 
 const PricesEditor = ({
   history,
-  scenario,
+  environment,
   products,
   categoryProducts,
   onToggleProduct,
@@ -60,7 +60,7 @@ const PricesEditor = ({
           }
         >
           {categoryProducts[category].map(id => {
-            const included = Object.keys(scenario.products).includes(id)
+            const included = Object.keys(environment.products).includes(id)
             return (
               <ListItem key={id}>
                 <LeftListItemSecondaryAction>
@@ -72,7 +72,7 @@ const PricesEditor = ({
                 <LeftMarginedListItemText primary={products[id].name} />
                 {included &&
                   <NumberTextField
-                    value={scenario.products[id]}
+                    value={environment.products[id]}
                     onChange={event => onChangePrice(id)(event.target.value)}
                   />}
               </ListItem>
@@ -85,7 +85,7 @@ const PricesEditor = ({
 
 PricesEditor.propTypes = {
   history: PropTypes.shape({ goBack: PropTypes.func }).isRequired,
-  scenario: scenarioPropType,
+  environment: environmentPropType,
   products: PropTypes.objectOf(productPropType),
   categoryProducts: categoryProductsPropType,
   onToggleProduct: PropTypes.func.isRequired,

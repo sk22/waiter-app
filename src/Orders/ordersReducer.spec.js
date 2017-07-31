@@ -6,12 +6,12 @@ import {
   setOrderProduct,
   setOrderDelivered,
   setOrderAttributes,
-  setOrderScenario
+  setOrderEnvironment
 } from './ordersActions'
 
 const initialState = {
   o1: {
-    scenario: 's1',
+    environment: 's1',
     delivered: false,
     attributes: {
       place: '13',
@@ -25,11 +25,11 @@ const initialState = {
 }
 
 test('adds an order', () => {
-  const state = reducer(initialState, addOrder({ id: 'o2', scenario: 's1' }))
+  const state = reducer(initialState, addOrder({ id: 'o2', environment: 's1' }))
   expect(state).toEqual({
     ...initialState,
     o2: {
-      scenario: 's1',
+      environment: 's1',
       delivered: false,
       attributes: {},
       products: {}
@@ -56,7 +56,7 @@ test("sets an order's attribute", () => {
     setOrderAttributes({ id: 'o1', attributes: { note: 'test' } })
   )
   expect(state.o1).toEqual({
-    scenario: 's1',
+    environment: 's1',
     delivered: false,
     attributes: {
       place: '13',
@@ -100,10 +100,10 @@ test('removes a product from the order', () => {
   expect(state.o1.products).toEqual({ p2: 3 })
 })
 
-test("sets an order's scenario", () => {
+test("sets an order's environment", () => {
   const state = reducer(
     initialState,
-    setOrderScenario({ id: 'o1', scenario: 's2' })
+    setOrderEnvironment({ id: 'o1', environment: 's2' })
   )
-  expect(state.o1.scenario).toBe('s2')
+  expect(state.o1.environment).toBe('s2')
 })

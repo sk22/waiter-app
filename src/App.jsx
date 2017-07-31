@@ -7,7 +7,7 @@ import { injectGlobal } from 'styled-components'
 // import exampleState from './exampleState'
 import { loadState, saveState } from './localStorage'
 import reducer from './reducers'
-import Scenarios from './Scenarios'
+import Environments from './Environments'
 import Products from './Products'
 import Orders from './Orders'
 
@@ -32,11 +32,11 @@ const App = () =>
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={Scenarios} />
-        <Route path="/scenarios" component={Scenarios} />
+        <Route exact path="/" component={Environments} />
+        <Route path="/environments" component={Environments} />
         <Route path="/products" component={Products} />
         <Route path="/orders" component={Orders} />
-        <Route path="/:scenario" component={Orders} />
+        <Route path="/:environment" component={Orders} />
       </Switch>
     </BrowserRouter>
   </Provider>

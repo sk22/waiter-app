@@ -9,34 +9,34 @@ import ErrorPage from '../layouts/ErrorPage'
 import Content from '../components/Content'
 import Navigation from '../components/Navigation'
 import BackIconButton from '../components/BackIconButton'
-import { scenario as scenarioPropType } from './scenariosPropTypes'
+import { environment as environmentPropType } from './environmentsPropTypes'
 
-const ScenarioEditor = ({ title, onAdd, onChangeName, history, scenario }) =>
-  !scenario
+const EnvironmentEditor = ({ title, onAdd, onChangeName, history, environment }) =>
+  !environment
     ? <ErrorPage error="Not Found" goBack={history.goBack} />
     : <Page>
         <Navigation
           iconButton={<BackIconButton goBack={history.goBack} />}
-          title={title || 'Edit Scenario'}
+          title={title || 'Edit Environment'}
         >
           {onAdd &&
-            <IconButton to="/scenarios/add" onClick={onAdd}>
+            <IconButton to="/environments/add" onClick={onAdd}>
               <SaveIcon />
             </IconButton>}
         </Navigation>
         <Content>
           <TextField
             label="Name"
-            value={scenario.name}
+            value={environment.name}
             onChange={event => onChangeName(event.target.value)}
             fullWidth
           />
         </Content>
       </Page>
 
-ScenarioEditor.propTypes = {
+EnvironmentEditor.propTypes = {
   title: PropTypes.string,
-  scenario: scenarioPropType,
+  environment: environmentPropType,
   onAdd: PropTypes.func,
   onChangeName: PropTypes.func.isRequired,
   history: PropTypes.shape({
@@ -44,4 +44,4 @@ ScenarioEditor.propTypes = {
   })
 }
 
-export default ScenarioEditor
+export default EnvironmentEditor

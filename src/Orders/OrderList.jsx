@@ -37,10 +37,10 @@ const OrderList = ({
           title={name || 'Orders'}
           iconButton={<BackIconButton goBack={history.goBack} />}
         >
-          {match.params.scenario &&
+          {match.params.environment &&
             <IconButton
               component={Link}
-              to={`/scenarios/${match.params.scenario}/prices`}
+              to={`/environments/${match.params.environment}/prices`}
             >
               <MoneyIcon />
             </IconButton>}
@@ -57,7 +57,7 @@ const OrderList = ({
                   <ListItem
                     key={id}
                     component={Link}
-                    to={`/${match.params.scenario || 'orders'}/${id}`}
+                    to={`/${match.params.environment || 'orders'}/${id}`}
                   >
                     <ListItemText
                       primary={

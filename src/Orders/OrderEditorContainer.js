@@ -1,43 +1,43 @@
 import { connect } from 'react-redux'
 
 import {
-  setOrderScenario,
+  setOrderEnvironment,
   setOrderDelivered,
   setOrderAttributes,
   setOrderProduct
 } from '../Orders/ordersActions'
 import OrderEditor from './OrderEditor'
 
-const mapStateToProps = ({ scenarios, orders, products }, { match }) => {
+const mapStateToProps = ({ environments, orders, products }, { match }) => {
   const id = match.params.id
   const order = orders[id]
-  const scenario = order.scenario && scenarios[order.scenario]
+  const environment = order.environment && environments[order.environment]
 
-  const sum = scenario
+  const sum = environment
     ? Object.keys(order.products).reduce((pre, key) => {
-        const price = Number(scenario.products[key])
+        const price = Number(environment.products[key])
         const quantity = order.products[key]
         return pre + price * quantity
       }, 0)
     : 0
 
-  const filteredProducts = scenario
+  const filteredProducts = environment
     ? Object.keys(products).filter(product =>
-        Object.keys(scenario.products).includes(product)
+        Object.keys(environment.products).includes(product)
       )
     : Object.keys(products)
 
   return {
     sum,
     order,
-    scenarios,
-    scenario,
+    environments,
+    environment,
     products: filteredProducts.reduce(
       (pre, key) => ({
         ...pre,
         [key]: {
           ...products[key],
-          price: scenario ? scenario.products[key] : 0
+          price: environment ? environment.products[key] : 0
         }
       }),
       {}
@@ -46,7 +46,7 @@ const mapStateToProps = ({ scenarios, orders, products }, { match }) => {
 }
 
 const mapDispatchToProps = (dispatch, { match: { params: { id } } }) => ({
-  onChooseScenario: scenario => dispatch(setOrderScenario({ id, scenario })),
+  onChooseEnvironment: environment => dispatch(setOrderEnvironment({ id, environment })),
   onToggleDelivered: delivered =>
     dispatch(setOrderDelivered({ id, delivered })),
   onChangeNotes: notes =>

@@ -13,24 +13,24 @@ import List, {
 
 import Page from '../layouts/Page'
 import Navigation from '../components/Navigation'
-import { scenario as scenarioPropType } from './scenariosPropTypes'
+import { environment as environmentPropType } from './environmentsPropTypes'
 
-const Scenarios = ({ scenarios }) =>
+const Environments = ({ environments }) =>
   <Page>
-    <Navigation title="Scenarios">
+    <Navigation title="Environments">
       <IconButton component={Link} to="/products">
         <RestaurantMenuIcon />
       </IconButton>
-      <IconButton component={Link} to="/scenarios/add">
+      <IconButton component={Link} to="/environments/add">
         <AddIcon />
       </IconButton>
     </Navigation>
     <List>
-      {Object.keys(scenarios).map(id =>
+      {Object.keys(environments).map(id =>
         <ListItem key={id} button component={Link} to={`/${id}`}>
-          <ListItemText primary={scenarios[id].name} />
+          <ListItemText primary={environments[id].name} />
           <ListItemSecondaryAction>
-            <IconButton component={Link} to={`/scenarios/${id}`}>
+            <IconButton component={Link} to={`/environments/${id}`}>
               <EditIcon />
             </IconButton>
           </ListItemSecondaryAction>
@@ -39,8 +39,8 @@ const Scenarios = ({ scenarios }) =>
     </List>
   </Page>
 
-Scenarios.propTypes = {
-  scenarios: PropTypes.objectOf(scenarioPropType)
+Environments.propTypes = {
+  environments: PropTypes.objectOf(environmentPropType)
 }
 
-export default Scenarios
+export default Environments
