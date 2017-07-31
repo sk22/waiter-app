@@ -21,7 +21,7 @@ const initialState = {
 test('adds a environment', () => {
   const state = reducer(
     initialState,
-    addEnvironment({ id: 's3', name: 'Restaurant', products: { p1: 2 } })
+    addEnvironment({ id: 's3', name: 'Restaurant', products: { p1: '2.00' } })
   )
   expect(state).toEqual({
     s1: {
@@ -57,8 +57,8 @@ test("sets a product's price", () => {
     setEnvironmentProduct({ id: 's1', product: 'p1', price: '10.00' })
   )
   expect(state.s1.products).toEqual({
-    p1: 10,
-    p2: 7
+    p1: '10.00',
+    p2: '7.00'
   })
 })
 

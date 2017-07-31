@@ -43,7 +43,10 @@ test('removes a product', () => {
 })
 
 test("sets a product's name", () => {
-  const state = reducer(initialState, setProductName({ id: 'p2', name: 'Salad' }))
+  const state = reducer(
+    initialState,
+    setProductName({ id: 'p2', name: 'Salad' })
+  )
   expect(state.p2).toEqual({
     name: 'Salad',
     category: 'Food'
