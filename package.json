@@ -38,7 +38,7 @@
     "eject": "react-scripts eject",
     "prepare": "node prepare-surge",
     "predeploy": "npm run build && shx cp ./build/index.html ./build/200.html",
-    "deploy": "surge ./build waiter-app.surge.sh"
+    "deploy": "surge ./build ^https://waiter-app.surge.sh"
   },
   "eslintConfig": {
     "extends": [
