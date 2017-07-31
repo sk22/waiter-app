@@ -6,10 +6,13 @@ import List, { ListItem, ListItemText } from 'material-ui/List'
 import Menu, { MenuItem } from 'material-ui/Menu'
 import Divider from 'material-ui/Divider'
 import Typography from 'material-ui/Typography'
+import IconButton from 'material-ui/IconButton'
+import DeleteIcon from 'material-ui-icons/Delete'
 
 import { order as orderPropType } from '../Orders/ordersPropTypes'
 import { environment as environmentPropType } from '../Environments/environmentsPropTypes'
 import Page from '../layouts/Page'
+import ErrorPage from '../layouts/ErrorPage'
 import Navigation from '../components/Navigation'
 import Content from '../components/Content'
 import BackIconButton from '../components/BackIconButton'
@@ -35,7 +38,8 @@ class OrderEditor extends Component {
     onToggleDelivered: PropTypes.func,
     onChangeLocation: PropTypes.func,
     onChangeNotes: PropTypes.func,
-    onChangeProductQuantity: PropTypes.func
+    onChangeProductQuantity: PropTypes.func,
+    onRemove: PropTypes.func
   }
 
   state = {
@@ -55,100 +59,109 @@ class OrderEditor extends Component {
   }
 
   render = () =>
-    <Page>
-      <Navigation
-        title="Order"
-        iconButton={<BackIconButton goBack={this.props.history.goBack} />}
-      />
-      <List>
-        <ListItem
-          button
-          aria-haspopup="true"
-          onClick={this.handleClickListItem}
-        >
-          <ListItemText
-            primary="Environment"
-            secondary={this.props.environment ? this.props.environment.name : 'None'}
-          />
-        </ListItem>
-        <ListItem
-          button
-          onClick={event =>
-            this.props.onToggleDelivered(!this.props.order.delivered)}
-        >
-          <ListItemText primary="Delivered" />
-          <AutoSizeCheckbox
-            checked={this.props.order.delivered}
-            disableRipple
-          />
-        </ListItem>
-      </List>
-      <Menu
-        anchorEl={this.state.anchorEl}
-        open={this.state.environmentMenuOpen}
-        onRequestClose={this.handleRequestClose}
-      >
-        {Object.keys(this.props.environments).map(id =>
-          <MenuItem
-            key={id}
-            selected={id === this.props.order.environment}
-            onClick={this.onMenuItemClick(id)}
+    !this.props.order
+      ? <ErrorPage error="Not Found" goBack={this.props.history.goBack} />
+      : <Page>
+          <Navigation
+            title="Order"
+            iconButton={<BackIconButton goBack={this.props.history.goBack} />}
           >
-            {this.props.environments[id].name}
-          </MenuItem>
-        )}
-      </Menu>
-      <Divider />
-      <Content>
-        <TextField
-          label="Location"
-          margin="normal"
-          fullWidth
-          value={this.props.order.attributes.location || ''}
-          onChange={event => this.props.onChangeLocation(event.target.value)}
-        />
-        <TextField
-          placeholder="Notes"
-          margin="normal"
-          multiline
-          fullWidth
-          value={this.props.order.attributes.notes || ''}
-          onChange={event => this.props.onChangeNotes(event.target.value)}
-        />
-      </Content>
-      <Divider />
-      <List>
-        {Object.keys(this.props.products).map(id => {
-          const product = this.props.products[id]
-          const quantity = this.props.order.products[id] || 0
-          return (
-            <ListItem key={id} divider>
+            <IconButton onClick={this.props.onRemove}>
+              <DeleteIcon />
+            </IconButton>
+          </Navigation>
+          <List>
+            <ListItem
+              button
+              aria-haspopup="true"
+              onClick={this.handleClickListItem}
+            >
               <ListItemText
-                primary={product.name}
+                primary="Environment"
                 secondary={
-                  Number(product.price).toFixed(2) +
-                  (quantity
-                    ? ` × ${quantity} = ` +
-                      (Number(product.price) * quantity).toFixed(2)
-                    : '')
+                  this.props.environment ? this.props.environment.name : 'None'
                 }
               />
-              <NumberPicker
-                value={quantity}
-                onChange={this.props.onChangeProductQuantity(id)}
+            </ListItem>
+            <ListItem
+              button
+              onClick={event =>
+                this.props.onToggleDelivered(!this.props.order.delivered)}
+            >
+              <ListItemText primary="Delivered" />
+              <AutoSizeCheckbox
+                checked={this.props.order.delivered}
+                disableRipple
               />
             </ListItem>
-          )
-        })}
-        <Divider />
-        <ListItem>
-          <ListItemText primary="Sum" />
-          <Typography type="subheading">
-            {this.props.sum.toFixed(2)}
-          </Typography>
-        </ListItem>
-      </List>
-    </Page>
+          </List>
+          <Menu
+            anchorEl={this.state.anchorEl}
+            open={this.state.environmentMenuOpen}
+            onRequestClose={this.handleRequestClose}
+          >
+            {Object.keys(this.props.environments).map(id =>
+              <MenuItem
+                key={id}
+                selected={id === this.props.order.environment}
+                onClick={this.onMenuItemClick(id)}
+              >
+                {this.props.environments[id].name}
+              </MenuItem>
+            )}
+          </Menu>
+          <Divider />
+          <Content>
+            <TextField
+              label="Location"
+              margin="normal"
+              fullWidth
+              value={this.props.order.attributes.location || ''}
+              onChange={event =>
+                this.props.onChangeLocation(event.target.value)}
+            />
+            <TextField
+              placeholder="Notes"
+              margin="normal"
+              multiline
+              fullWidth
+              value={this.props.order.attributes.notes || ''}
+              onChange={event => this.props.onChangeNotes(event.target.value)}
+            />
+          </Content>
+          <Divider />
+          <List>
+            {Object.keys(this.props.products).map(id => {
+              const product = this.props.products[id]
+              const quantity = this.props.order.products[id] || 0
+              return (
+                <ListItem key={id} divider>
+                  <ListItemText
+                    primary={product.name}
+                    secondary={
+                      Number(product.price).toFixed(2) +
+                      (quantity
+                        ? ` × ${quantity} = ` +
+                          (Number(product.price) * quantity).toFixed(2)
+                        : '')
+                    }
+                  />
+                  <NumberPicker
+                    value={quantity}
+                    onChange={this.props.onChangeProductQuantity(id)}
+                  />
+                </ListItem>
+              )
+            })}
+            <Divider />
+            <ListItem>
+              <ListItemText primary="Sum" />
+              <Typography type="subheading">
+                {this.props.sum.toFixed(2)}
+              </Typography>
+            </ListItem>
+          </List>
+        </Page>
 }
 
 export default OrderEditor

@@ -12,6 +12,7 @@ import List, {
 } from 'material-ui/List'
 
 import Page from '../layouts/Page'
+import Content from '../components/Content'
 import Navigation from '../components/Navigation'
 import { environment as environmentPropType } from './environmentsPropTypes'
 
@@ -25,18 +26,31 @@ const Environments = ({ environments }) =>
         <AddIcon />
       </IconButton>
     </Navigation>
-    <List>
-      {Object.keys(environments).map(id =>
-        <ListItem key={id} button component={Link} to={`/${id}`}>
-          <ListItemText primary={environments[id].name} />
-          <ListItemSecondaryAction>
-            <IconButton component={Link} to={`/environments/${id}`}>
-              <EditIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-      )}
-    </List>
+    {!Object.keys(environments).length
+      ? <Content>
+          <p>
+            Environments help you structure your orders. One environment for
+            each event, restaurant, etc.
+          </p>
+          <p>
+            No environments there yet. Go create one!{' '}
+            <span role="img" aria-labelledby="smiling face">
+              😄
+            </span>
+          </p>
+        </Content>
+      : <List>
+          {Object.keys(environments).map(id =>
+            <ListItem key={id} button component={Link} to={`/${id}`}>
+              <ListItemText primary={environments[id].name} />
+              <ListItemSecondaryAction>
+                <IconButton component={Link} to={`/environments/${id}`}>
+                  <EditIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          )}
+        </List>}
   </Page>
 
 Environments.propTypes = {

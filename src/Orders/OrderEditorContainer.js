@@ -4,13 +4,16 @@ import {
   setOrderEnvironment,
   setOrderDelivered,
   setOrderAttributes,
-  setOrderProduct
+  setOrderProduct,
+  removeOrder
 } from '../Orders/ordersActions'
 import OrderEditor from './OrderEditor'
 
 const mapStateToProps = ({ environments, orders, products }, { match }) => {
   const id = match.params.id
   const order = orders[id]
+  if (!order) return { order }
+
   const environment = order.environment && environments[order.environment]
 
   const sum = environment
@@ -45,8 +48,12 @@ const mapStateToProps = ({ environments, orders, products }, { match }) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, { match: { params: { id } } }) => ({
-  onChooseEnvironment: environment => dispatch(setOrderEnvironment({ id, environment })),
+const mapDispatchToProps = (
+  dispatch,
+  { match: { params: { id } }, history }
+) => ({
+  onChooseEnvironment: environment =>
+    dispatch(setOrderEnvironment({ id, environment })),
   onToggleDelivered: delivered =>
     dispatch(setOrderDelivered({ id, delivered })),
   onChangeNotes: notes =>
@@ -54,7 +61,11 @@ const mapDispatchToProps = (dispatch, { match: { params: { id } } }) => ({
   onChangeLocation: location =>
     dispatch(setOrderAttributes({ id, attributes: { location } })),
   onChangeProductQuantity: product => quantity =>
-    dispatch(setOrderProduct({ id, product, quantity }))
+    dispatch(setOrderProduct({ id, product, quantity })),
+  onRemove: () => {
+    history.goBack()
+    dispatch(removeOrder(id))
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderEditor)

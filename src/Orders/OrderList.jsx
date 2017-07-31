@@ -5,8 +5,8 @@ import IconButton from 'material-ui/IconButton'
 import Divider from 'material-ui/Divider'
 import AddIcon from 'material-ui-icons/Add'
 import MoneyIcon from 'material-ui-icons/AttachMoney'
-import ArchiveIcon from 'material-ui-icons/Archive'
-import UnarchiveIcon from 'material-ui-icons/Unarchive'
+import DoneIcon from 'material-ui-icons/Done'
+
 import List, {
   ListItem,
   ListItemText,
@@ -66,7 +66,7 @@ const OrderList = ({
                     />
                     <ListItemSecondaryAction>
                       <IconButton>
-                        <ArchiveIcon
+                        <DoneIcon
                           onClick={() => onToggle(id)(!orders[id].delivered)}
                         />
                       </IconButton>
@@ -77,7 +77,13 @@ const OrderList = ({
             </List>
           : <List>
               <ListItem>
-                <ListItemText primary="All orders have been delivered" />
+                <ListItemText
+                  primary={
+                    Object.keys(orders).length
+                      ? 'All orders have been delivered'
+                      : 'No orders there yet'
+                  }
+                />
               </ListItem>
             </List>}
 
@@ -87,13 +93,6 @@ const OrderList = ({
             {delivered.map(id =>
               <ListItem key={id} component={Link} to={`/orders/${id}`} dense>
                 <ListItemText primary={`Order ${id}`} />
-                <ListItemSecondaryAction>
-                  <IconButton>
-                    <UnarchiveIcon
-                      onClick={() => onToggle(id)(!orders[id].delivered)}
-                    />
-                  </IconButton>
-                </ListItemSecondaryAction>
               </ListItem>
             )}
           </List>}
