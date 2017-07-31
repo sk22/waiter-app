@@ -87,7 +87,7 @@ PricesEditor.propTypes = {
   history: PropTypes.shape({ goBack: PropTypes.func }).isRequired,
   scenario: scenarioPropType,
   products: PropTypes.objectOf(productPropType),
-  categories: PropTypes.arrayOf(PropTypes.string),
+  categoryProducts: categoryProductsPropType,
   onToggleProduct: PropTypes.func.isRequired,
   onChangePrice: PropTypes.func.isRequired
 }
