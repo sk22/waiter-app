@@ -169,6 +169,10 @@ order: shape({
   { id: string, product: string }
   ```
 
+## Attribution
+
+Icons made by Vectors Market from www.flaticon.com is licensed by CC 3.0 BY
+
 ## License
 
 MIT
