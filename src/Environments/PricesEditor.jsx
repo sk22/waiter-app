@@ -80,7 +80,7 @@ const PricesEditor = ({
           })}
         </List>
       )
-    })}
+    }
   </Page>
 
 PricesEditor.propTypes = {
